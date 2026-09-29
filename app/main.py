@@ -2,10 +2,12 @@ from fastapi import FastAPI
 
 from app import models  # noqa: F401
 from app.database import Base, engine
+from app.routers import auth
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Job Application Tracker API", version="0.1.0")
+app.include_router(auth.router)
 
 
 @app.get("/health")
